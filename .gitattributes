@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# index.csv uses CRLF line endings (see CLAUDE.md); keep them as-is.
+index.csv text eol=crlf
