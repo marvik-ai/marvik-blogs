@@ -59,7 +59,7 @@ We tested three families of gates, each with and without the product photo:
 
 The client's merge policy went into the wording. A different barcode is seller noise, placeholder brands like "Generic" are neutral, and "Preto", "Negro" and "Black" are the same color.
 
-The winner was the hand-written bank: four broad questions asked in a single call, with the titles, attributes and first photo of each page, combined by a logistic regression. It beat both the single question and the longer banks of narrow checks, at lower cost.
+There was no single winner: each option led on one axis. The single question with a photo was the cheapest, but kept only 93.7% of duplicates, just under the target. A bank of four broad questions filtered the most while keeping 95%. A bank tuned for 97% missed the fewest duplicates, but sent about a fifth more pairs to the agent. Choosing among them is a business decision: fewer missed duplicates or more savings. The results below use the four-question bank.
 
 ### How we validated it
 

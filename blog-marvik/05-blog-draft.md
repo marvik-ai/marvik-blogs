@@ -67,7 +67,7 @@ We tested three families of gates, each with and without the product photo:
 
 The client's merge policy went into the wording of every question. A different barcode is seller noise, while a shared one supports a match but can be copied. Placeholder brands like "Generic" are neutral, and "Preto", "Negro" and "Black" are the same color.
 
-The winner was the hand-written bank: four broad questions asked in a single call, with the titles, attributes and first photo of each page, combined by a logistic regression. It beat both the single question and the longer banks of narrow checks, at lower cost.
+There was no single winner: each option led on one axis. The single question with a photo was the cheapest, but kept only 93.7% of duplicates, just under the target. A bank of four broad questions, asked in one call with the titles, attributes and first photo of each page, filtered the most while keeping 95%. A bank tuned for 97% missed the fewest duplicates, but sent about a fifth more pairs to the agent. Longer banks of narrow checks lost on all three. Choosing among the rest is a business decision: fewer missed duplicates or more savings. The results below use the four-question bank.
 
 ### How we validated it
 
@@ -83,7 +83,6 @@ On the blind test, the four-question bank with photos downscaled to 512 pixels d
 - **Cost per 1,000 pairs falls from USD 9.76 to USD 1.38, and compute time from 249 to 35 minutes: 86% less on both.**
 - **At quarterly volume: about USD 14,000 instead of USD 98,000, about 5,800 compute hours instead of 41,500, and 8.8 million fewer calls to the agent.**
 - **The same budget now covers about seven times as many candidate pairs**, so catalog cleanup can keep pace with catalog growth.
-- **For more margin**, a similar bank tuned for 97% kept **97.3% of duplicates** while still filtering 88% of non-duplicates.
 
 ## Case 2: finding piracy offers for a media group
 
