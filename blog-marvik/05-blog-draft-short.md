@@ -34,12 +34,20 @@ pending:
   - Check the product names and links for OpenAI's Decisions API and TypeSafe's JEV, and add them as external links.
   - Assets to produce - (1) pipeline diagram after the intro, alt text "Candidate generator sends items to a cheap decision-model gate; only likely positives reach the LLM agent, then human review"; (2) FAQ schema (FAQPage JSON-LD) built from the FAQ section.
   - Layout - render the five "How we worked" steps as step cards in Webflow (one card per step - number, title, one-line description, Catalog and Anti-piracy rows), horizontal on desktop and stacked on mobile.
+  - "What is at stake" table - confirm catalog scale (1B+ items, ~100M product pages) with the client and check it does not identify it; the piracy losses (USD 10B / 2.4B) come from secondary coverage of the Alianza + Fabric Q4 2025 report (March 2026), so link the original report if available.
   - Before publishing - remove this frontmatter block and map seo_title, meta_description and slug to the Webflow fields.
 ---
 
 # Put a gate before the judge: how to reduce LLM costs in product matching and piracy detection
 
 *How Marvik helped a leading Latin American e-commerce marketplace and a global media group put cheap decision models in front of their most expensive AI steps: 86% less cost and compute time in duplicate product detection, and a piracy filter that is more accurate and nearly four times faster than the one it replaced.*
+
+**What is at stake**
+
+| | Catalog | Anti-piracy |
+|---|---|---|
+| Scale | 1B+ items across ~100M product pages; ~10M candidate pairs to review a quarter | 1M+ pirate IPTV homes in Chile; the client's sports channel there fell from ~1M to ~600,000 subscribers in five years |
+| Cost of the problem | ~USD 98,000 and 41,500 compute hours a quarter to review every pair with an LLM agent | Online piracy losses in Latin America: ~USD 10 billion a year, plus ~USD 2.4 billion lost by pay-TV operators ([Alliance Against Audiovisual Piracy](https://piracymonitor.org/latin-america-in-q4-of-2025-pirates-invaded-46-million-online-households-nearly-10-billion-lost/)) |
 
 **Key numbers**
 
@@ -48,7 +56,7 @@ pending:
 | Catalog: cost per 1,000 product pairs | USD 9.76 | USD 1.38 (−86%) |
 | Catalog: pairs sent to the agent | 100% | 12.3% (95% of duplicates kept) |
 | Anti-piracy (Instagram): time per post | 3.2 s | 0.85 s |
-| Anti-piracy (Instagram): pirate offers caught | 88% | 94% |
+| Anti-piracy (Instagram): pirate offers caught | 88% (with cheap LLM) | 94% (with decision model)|
 
 ## Most of what an LLM agent reviews is a "no"
 
@@ -71,8 +79,8 @@ The gate never makes the final call. It only decides which candidates reach the 
 Both projects followed the same five steps.
 
 **Step 1 · Measure the expensive step**
-Run it on real candidates instead of estimating its cost.
-- *Catalog:* the agent took about 15 seconds and one US cent per pair, twice the estimate.
+Run it on real candidates to know what each decision costs and how long it takes.
+- *Catalog:* the agent took about 15 seconds and one US cent per pair.
 - *Anti-piracy:* the screenshots cost more than the tokens.
 
 **Step 2 · Write the client's policy into closed questions**
@@ -105,9 +113,9 @@ In a large marketplace, every seller can create their own page, so the same prod
 
 Rules such as shared identifiers propose candidate pairs, but they cannot settle the question: two pages with different titles can be the same product, and two nearly identical ones can differ in color or pack size. So an LLM agent judges each pair by reading both pages and their photos, as a human catalog analyst would.
 
-The agent is accurate, but slow and expensive. Measured on real pairs, each decision takes **about 15 seconds and costs about one US cent**, twice the previous estimate. At roughly 10 million pairs per quarter, that is around **USD 98,000 and 41,500 compute hours a quarter**, nearly all of it spent confirming that two pages are *not* the same product.
+The agent is accurate, but slow and expensive. Measured on real pairs, each decision takes **about 15 seconds and costs about one US cent**. At roughly 10 million pairs per quarter, that is around **USD 98,000 and 41,500 compute hours a quarter**, nearly all of it spent confirming that two pages are *not* the same product.
 
-The gate had to let through **at least 95% of true duplicates**, because the agent cannot merge what it never sees, and filter out as many non-duplicates as possible. A cheaper model had already been tested as a replacement for the agent and caught only 40% to 57% of duplicates. It was not a good judge. But it could be a good gate.
+The gate had to let through **at least 95% of true duplicates**, because the agent cannot merge what it never sees, and filter out as many non-duplicates as possible. Our first approach was to replace the agent with a cheaper model running the agent's own prompt. It caught only 40% to 57% of duplicates, too few to make the final call. But a cheap model can do an easier job: discard the pairs that are clearly not duplicates and send the rest to the agent.
 
 ### How the gate works: three ways to ask the question
 
@@ -185,14 +193,14 @@ On Instagram, we replayed real posts with their screenshots and compared the new
 - **Requiring Spanish lowers recall to 82%** at the same precision. The client accepted that: the lost offers are outside its market.
 - **For the two-person anti-piracy team, that means [X] confirmed offers reported per week, up from [Y] before the monitor, and about [Z] hours a week no longer spent on false alarms.** [TBD with the client]
 
-On Facebook Marketplace, the first live run in Buenos Aires and Santiago showed where the cascade pays. **The text stage discarded 87% of listings without taking a screenshot**, at a median of 425 milliseconds each, so the savings are in page captures (about one for every eight listings), at a model cost of about USD 0.14 per 1,000 listings. Fewer captures mean fewer page loads and less exposure to anti-bot blocks. These listings have no human labels yet, so this run does not measure how many offers were caught or missed.
+On Facebook Marketplace, the first live run in Buenos Aires and Santiago showed where the cascade pays. **The text stage discarded 87% of listings without taking a screenshot**, at a median of 425 milliseconds each, so the savings are in page captures (about one for every eight listings), at a model cost of about USD 0.14 per 1,000 listings. Fewer captures mean fewer page loads and less exposure to anti-bot blocks.
 
 ## What these projects show: learn to say no
 
 1. **Don't replace the judge; put a gate in front of it.** In both pipelines, an LLM agent still makes the final call. The gate decides what reaches it: 1 in 8 pairs in the catalog, and only the likely offers in anti-piracy.
 2. **Write the policy into a question that returns a probability.** Barcodes, TV boxes and "TV digital" were rules and words someone had to write down, and the threshold is where each client chose which error to live with.
 3. **Decide what the gate does when it fails.** A gate that says yes when in doubt can turn one provider error into a week of junk cases for the people downstream.
-4. **Measure the expensive step, and the labels you measure against.** The catalog agent cost twice the estimate; in anti-piracy the expensive part was screenshots. And about 8% of the catalog's duplicate labels looked wrong on review.
+4. **Measure the expensive step, and the labels you measure against.** In the catalog, the agent's cost per pair set the size of the savings; in anti-piracy, the expensive part was screenshots, not tokens. And about 8% of the catalog's duplicate labels looked wrong on review.
 
 ## Frequently asked questions
 
