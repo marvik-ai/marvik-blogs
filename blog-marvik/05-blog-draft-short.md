@@ -47,7 +47,7 @@ pending:
 | | Catalog | Anti-piracy |
 |---|---|---|
 | Scale | 1B+ items across ~100M product pages; ~10M candidate pairs to review a quarter | 1M+ pirate IPTV homes in Chile; the client's sports channel there fell from ~1M to ~600,000 subscribers in five years |
-| Cost of the problem | ~USD 98,000 and 41,500 compute hours a quarter to review every pair with an LLM agent | Online piracy losses in Latin America: ~USD 10 billion a year, plus ~USD 2.4 billion lost by pay-TV operators ([Alliance Against Audiovisual Piracy](https://piracymonitor.org/latin-america-in-q4-of-2025-pirates-invaded-46-million-online-households-nearly-10-billion-lost/)) |
+| Cost of the problem | ~USD 100k and ~42k of compute hours a quarter to review every pair with an LLM agent | Online piracy losses in Latin America: ~USD 10 billion a year, plus ~USD 2.4 billion lost by pay-TV operators ([Alliance Against Audiovisual Piracy](https://piracymonitor.org/latin-america-in-q4-of-2025-pirates-invaded-46-million-online-households-nearly-10-billion-lost/)) |
 
 **Key numbers**
 
